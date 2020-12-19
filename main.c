@@ -16,6 +16,8 @@ int main(int agc, char **agv)
 	FILE *fd;
 	ssize_t l_size;
 	stack_t *stack = NULL;
+	void (*funct)(stack_t **, unsigned int) = NULL;
+
 	
 	if (agc != 2)
 	{
@@ -38,19 +40,19 @@ int main(int agc, char **agv)
 		{
 			if (strcmp(tok[0],"push") == 0)
 				push(&stack, l_cnt, tok[1]);
-			/*funct = get_inst(tok[0]);
-			  if (!funct)
-			  {
-			  fprint(stderr, "L%d: unknown instruction %s", l_cnt, tok[0]);
-			  quit_error();
-			  }
-
-			  funct(&stack, l_cnt);
-			  */
+			else
+			{
+				funct = get_inst(tok[0]);
+				if (!funct)
+				{
+					fprintf(stderr, "L%d: unknown instruction %s", l_cnt, tok[0]);
+					close_stack(stack, EXIT_FAILURE);
+				}
+				funct(&stack, l_cnt);
+			}
 		}
-			l_size = getline(&buf, &n, fd);
+		l_size = getline(&buf, &n, fd);
 	}
-
 	printf("s1 : %d\ns2 : %d\n", stack->n, stack->prev->n);
 
 	close_stack(stack, 0);
