@@ -35,6 +35,7 @@ int main(int agc, char **agv)
 	while (l_size != EOF)
 	{
 		b.tok = _strtok(buf, " \t\n");
+		sfree(&buf);
 		if(b.tok)
 		{
 			if (strcmp(b.tok[0],"push") == 0)
@@ -51,9 +52,8 @@ int main(int agc, char **agv)
 			}
 		}
 		freeStrArr(b.tok);
-		sfree(&buf);
 		l_size = getline(&buf, &n, b.fd);
 	}
-
+	sfree(&buf);
 	close_stack(stack, 0);
 }
