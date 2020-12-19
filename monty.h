@@ -54,12 +54,14 @@ void rotr(stack_t **, unsigned int);
 void stack(stack_t **, unsigned int);
 void queue(stack_t **, unsigned int);
 
+void (*get_inst(char *))(stack_t **, unsigned int);
+
 void close_stack(stack_t *stack, int exit_val);
 void free_stack(stack_t *stack);
 
 int _wc(char *str, char *delims);
 int strHasChar(char *str, char c);
 char **_strtok(char *str, char *delims);
-int isint();
+int isint(char *);
 
 #endif
