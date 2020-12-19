@@ -4,7 +4,7 @@
  * @tok: instruction string.
  * Return: the appropiate function, or NULL if none found.
  */
-void *get_inst(char *tok)
+void (*get_inst(char *tok))(stack_t **stack, unsigned int line)
 {
 	instruction_t arr[] = {
 		{"pall", pall},
@@ -15,6 +15,7 @@ void *get_inst(char *tok)
 		{NULL, NULL},
 	};
 	int i = 0;
+
 	while (arr[i].opcode != NULL)
 	{
 		if (strcmp(tok, arr[i].opcode) == 0)
