@@ -5,6 +5,10 @@
 #include <stdlib.h>
 #include <string.h>
 
+#define STACK_MODE 1
+#define QUEUE_MODE 0
+
+
 /**
  * struct stack_s - doubly linked list representation of a stack (or queue)
  * @n: integer
@@ -35,6 +39,25 @@ typedef struct instruction_s
 	void (*f)(stack_t **stack, unsigned int line_number);
 } instruction_t;
 
+/**
+ * struct build - an instance of a Monty interpreter
+ * @fd: file descriptor for file being read from
+ * @tok: ByteCodes read from current line
+ * @mode: keeps track is linked list if being treated
+ * as a stack or a queue (stack = 1, queue = 0)
+ *
+ * On exit fd must be closed and toks must be freed;
+ */
+
+typedef struct build
+{
+	FILE *fd;
+	char **tok;
+	int mode;
+} build_t;
+
+build_t b;
+
 void push(stack_t **, unsigned int, char *);
 
 void pall(stack_t **, unsigned int);
@@ -56,12 +79,20 @@ void queue(stack_t **, unsigned int);
 
 void (*get_inst(char *))(stack_t **, unsigned int);
 
-void close_stack(stack_t *stack, int exit_val);
-void free_stack(stack_t *stack);
-
+/*---string manipulation----*/
 int _wc(char *str, char *delims);
 int strHasChar(char *str, char c);
 char **_strtok(char *str, char *delims);
 int isint(char *);
+/*-----------------------------*/
+
+
+void close_stack(stack_t *stack, int exit_val);
+
+/*---FREEING----*/
+void sfree(char **toFree);
+void freeStrArr(char **array);
+void free_stack(stack_t *stack);
+/*---------------*/
 
 #endif
