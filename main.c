@@ -10,38 +10,48 @@
  */
 int main(int agc, char **agv)
 {
-	int l_cnt = 1;
+	unsigned int l_cnt = 1;
+	size_t n = -1;
 	char *buf = NULL, **tok;
-	FILE *fp;
+	FILE *fd;
 	ssize_t l_size;
-
+	stack_t *stack = NULL;
+	
 	if (agc != 2)
-		error("USAGE: monty file\n");
+	{
+		fprintf(stderr, "USAGE: monty file\n");
+		close_stack(stack, EXIT_FAILURE);
+	}
 
 	fd = fopen(agv[1], "r");
 	if (!fd)
 	{
 		fprintf(stderr, "Error: Can't open file %s\n", agv[1]);
-		error("hey");
+		close_stack(stack, EXIT_FAILURE);
 	}
-	l_size = getline(&buf, &line_buf_size, fd);
+	l_size = getline(&buf, &n, fd);
 
-	while (line_size != EOF)
+	while (l_size != EOF)
 	{
 		tok = _strtok(buf, " \t\n");
-		if (tok[0] == "push")
-			push(stack, l_cnt, tok[1]);
-		funct = get_inst(tok[0]);
-		if (!funct)
+		if(tok)
 		{
-			fprint(stderr, "L%d: unknown instruction %s", l_cnt, tok[0]);
-			quit_error();
+			if (strcmp(tok[0],"push") == 0)
+				push(&stack, l_cnt, tok[1]);
+			/*funct = get_inst(tok[0]);
+			  if (!funct)
+			  {
+			  fprint(stderr, "L%d: unknown instruction %s", l_cnt, tok[0]);
+			  quit_error();
+			  }
+
+			  funct(&stack, l_cnt);
+			  */
 		}
-
-		funct(&stack, l_cnt);
-
-		l_size = getline(&line_buf, &line_buf_size, fd);
+			l_size = getline(&buf, &n, fd);
 	}
+
+	printf("s1 : %d\ns2 : %d\n", stack->n, stack->prev->n);
 
 	close_stack(stack, 0);
 }

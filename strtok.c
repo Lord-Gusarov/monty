@@ -1,5 +1,46 @@
 #include "monty.h"
 /**
+ * _wc - word count in a string, separated by chars in @delims
+ * @str: string to analyze
+ * @delims: list of chars that separate a word/token
+ * Return: count of words/tokens in a string
+ */
+int _wc(char *str, char *delims)
+{
+	int i = 0, wc = 0, flag = 1;
+
+	for (i = 0; str[i] != '\0'; i++)
+	{
+		if (strHasChar(delims, str[i]))
+			flag = 1;
+		else if (flag)
+		{
+			wc++;
+			flag = 0;
+		}
+	}
+	return (wc);
+}
+/**
+ * strHasChar - determines of a string contains certain char
+ * @str: string to check
+ * @c: char to look for
+ * Return: 1 if it contins the speciifed char, else 0
+ */
+int strHasChar(char *str, char c)
+{
+	while (*str != '\0')
+	{
+		if (*str == c)
+			return (1);
+		str++;
+	}
+
+	return (0);
+}
+
+
+/**
  * _strtok - splits a string into words/tokens
  * @str: string to be splitted
  * @delims: set of char that can separate aword/token

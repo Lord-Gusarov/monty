@@ -5,21 +5,23 @@
  * @tok: element to be added.
  * Return: nothing.
  */
-void push(stack_t **stack, int l_cnt, char *tok)
+void push(stack_t **stack, unsigned int l_cnt, char *tok)
 {
-	stack_t *new;
+	stack_t *new = NULL;
 
 	if (isint(tok) == 0)
-		close_stack(stack, EXIT_FAILURE);
+		close_stack(*stack, EXIT_FAILURE);
 	new = malloc(sizeof(stack_t));
 	if (!new)
 	{
-		fprint(stderr, "Error: malloc failed");
-		close_stack(stack, EXIT_FAILURE);
+		fprintf(stderr, "Error: malloc failed");
+		close_stack(*stack, EXIT_FAILURE);
 	}
-	new->n = atoi(tok)
+
+	
+	new->n = atoi(tok);
 	new->next = NULL;
-	if (!stack)
+	if (!*stack)
 	{
 		new->prev = NULL;
 		*stack = new;

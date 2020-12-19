@@ -7,6 +7,5 @@
  */
 void close_stack(stack_t *stack, int status)
 {
-	
 	exit(status);
 }
