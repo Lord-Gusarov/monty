@@ -10,50 +10,50 @@
  */
 int main(int agc, char **agv)
 {
+	stack_t *stack = NULL;
 	unsigned int l_cnt = 1;
 	size_t n = -1;
-	char *buf = NULL, **tok;
-	FILE *fd;
+	char *buf = NULL;
 	ssize_t l_size;
-	stack_t *stack = NULL;
 	void (*funct)(stack_t **, unsigned int) = NULL;
+	build_t b = {NULL, NULL, STACK_MODE};
 
-	
 	if (agc != 2)
 	{
 		fprintf(stderr, "USAGE: monty file\n");
 		close_stack(stack, EXIT_FAILURE);
 	}
 
-	fd = fopen(agv[1], "r");
-	if (!fd)
+	b.fd = fopen(agv[1], "r");
+	if (!b.fd)
 	{
 		fprintf(stderr, "Error: Can't open file %s\n", agv[1]);
 		close_stack(stack, EXIT_FAILURE);
 	}
-	l_size = getline(&buf, &n, fd);
+	l_size = getline(&buf, &n, b.fd);
 
 	while (l_size != EOF)
 	{
-		tok = _strtok(buf, " \t\n");
-		if(tok)
+		b.tok = _strtok(buf, " \t\n");
+		if(b.tok)
 		{
-			if (strcmp(tok[0],"push") == 0)
-				push(&stack, l_cnt, tok[1]);
+			if (strcmp(b.tok[0],"push") == 0)
+				push(&stack, l_cnt, b.tok[1]);
 			else
 			{
-				funct = get_inst(tok[0]);
+				funct = get_inst(b.tok[0]);
 				if (!funct)
 				{
-					fprintf(stderr, "L%d: unknown instruction %s", l_cnt, tok[0]);
+					fprintf(stderr, "L%d: unknown instruction %s", l_cnt, b.tok[0]);
 					close_stack(stack, EXIT_FAILURE);
 				}
 				funct(&stack, l_cnt);
 			}
 		}
-		l_size = getline(&buf, &n, fd);
+		freeStrArr(b.tok);
+		sfree(&buf);
+		l_size = getline(&buf, &n, b.fd);
 	}
-	printf("s1 : %d\ns2 : %d\n", stack->n, stack->prev->n);
 
 	close_stack(stack, 0);
 }
