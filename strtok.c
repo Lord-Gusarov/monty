@@ -43,7 +43,7 @@ int strHasChar(char *str, char c)
 /**
  * _strtok - splits a string into words/tokens
  * @str: string to be splitted
- * @delims: set of char that can separate aword/token
+ * @delims: set of char that can separate a word/token
  *
  * Return: The function returns a pointer to an array of strings (words)
  * NULL if str == NULL or str == ""
@@ -86,5 +86,4 @@ char **_strtok(char *str, char *delims)
 		}
 	}
 
-	return (m);
 }
