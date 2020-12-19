@@ -32,5 +32,5 @@ void swap(stack_t **stack, unsigned int line_number)
 		temp2->next = NULL;
 		(*stack) = temp2;
 	}
-	return (0);
+	return;
 }

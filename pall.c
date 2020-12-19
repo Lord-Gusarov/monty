@@ -9,7 +9,7 @@ void pall(stack_t **stack, unsigned int line)
 {
 	stack_t *temp = *stack;
 
-	while(temp != NULL)
+	while (temp != NULL)
 	{
 		printf("%d\n", temp->n);
 		temp = temp->prev;

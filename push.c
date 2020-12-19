@@ -3,6 +3,8 @@
 /**
  * push - adds an element to the stack.
  * @tok: element to be added.
+ * @stack: pointer to the stack.
+ * @l_cnt: line number.
  * Return: nothing.
  */
 void push(stack_t **stack, unsigned int l_cnt, char *tok)
@@ -18,7 +20,7 @@ void push(stack_t **stack, unsigned int l_cnt, char *tok)
 		close_stack(*stack, EXIT_FAILURE);
 	}
 
-	
+
 	new->n = atoi(tok);
 	new->next = NULL;
 	if (!*stack)
