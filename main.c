@@ -1,5 +1,7 @@
 #include "monty.h"
 
+build_t b = {NULL, NULL, NULL, NULL, STACK_MODE};
+
 /**
  * main - runs the Monty ByteCodes interpreter
  * @agc: count of arguments passed to the program
@@ -10,50 +12,60 @@
  */
 int main(int agc, char **agv)
 {
-	stack_t *stack = NULL;
-	unsigned int l_cnt = 1;
+	unsigned int l_cnt = 0;
 	size_t n = -1;
-	char *buf = NULL;
 	ssize_t l_size;
 	void (*funct)(stack_t **, unsigned int) = NULL;
-	build_t b = {NULL, NULL, STACK_MODE};
 
-	if (agc != 2)
+	validate_args(agc, agv);
+
+	while ((l_size = getline(&b.buf, &n, b.fd)) != EOF)
+	{
+		l_cnt++;
+		b.tok = _strtok(b.buf, " \t\n");
+		if (b.tok && b.tok[0][0] != '#')
+		{
+			funct = get_inst(b.tok[0]);
+			if (!funct)
+			{
+				fprintf(stderr, "L%d: unknown instruction %s", l_cnt, b.tok[0]);
+				close_stack(EXIT_FAILURE);
+			}
+			funct(&b.stack, l_cnt);
+		}
+		sfree(&b.buf);
+		freeStrArr(b.tok);
+	}
+	close_stack(0);
+	return (0);
+}
+
+
+/**
+ * validate_args - validates the arguments being passed to the program
+ * at program start-up
+ * @argc: count of arguments
+ * @argv: Array of string with al arguments
+ *
+ * Description: Takes cares of validating the amount of arguments being passed,
+ * and the validity of the file to open. If the count is right the file is open
+ * and the stream set in the BUILD_T global var of the program. If arguments
+ * are not righta an error mesaage is sent to 'stderr', memory check to be
+ * cleared and and program exited with status EXIT_FAILURE
+ */
+void validate_args(int argc, char **argv)
+{
+	if (argc != 2)
 	{
 		fprintf(stderr, "USAGE: monty file\n");
-		close_stack(stack, EXIT_FAILURE);
+		close_stack(EXIT_FAILURE);
 	}
 
-	b.fd = fopen(agv[1], "r");
+	b.fd = fopen(argv[1], "r");
 	if (!b.fd)
 	{
-		fprintf(stderr, "Error: Can't open file %s\n", agv[1]);
-		close_stack(stack, EXIT_FAILURE);
+		fprintf(stderr, "Error: Can't open file %s\n", argv[1]);
+		close_stack(EXIT_FAILURE);
 	}
-	l_size = getline(&buf, &n, b.fd);
-
-	while (l_size != EOF)
-	{
-		b.tok = _strtok(buf, " \t\n");
-		sfree(&buf);
-		if(b.tok)
-		{
-			if (strcmp(b.tok[0],"push") == 0)
-				push(&stack, l_cnt, b.tok[1]);
-			else
-			{
-				funct = get_inst(b.tok[0]);
-				if (!funct)
-				{
-					fprintf(stderr, "L%d: unknown instruction %s", l_cnt, b.tok[0]);
-					close_stack(stack, EXIT_FAILURE);
-				}
-				funct(&stack, l_cnt);
-			}
-		}
-		freeStrArr(b.tok);
-		l_size = getline(&buf, &n, b.fd);
-	}
-	sfree(&buf);
-	close_stack(stack, 0);
 }
+
