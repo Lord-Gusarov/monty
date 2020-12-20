@@ -35,6 +35,7 @@ int main(int agc, char **agv)
 		}
 		sfree(&b.buf);
 		freeStrArr(b.tok);
+		b.tok = NULL;
 	}
 	close_stack(0);
 	return (0);
