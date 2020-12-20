@@ -6,7 +6,7 @@
  */
 void (*get_inst(char *tok))(stack_t **stack, unsigned int line)
 {
-	instruction_t arr[] = {
+	static instruction_t arr[] = {
 		{"push", push},
 		{"pall", pall},
 		{"pint", pint},
@@ -19,6 +19,9 @@ void (*get_inst(char *tok))(stack_t **stack, unsigned int line)
 		{"mul", mul},
 		{"mod", mod},
 		{"pchar", pchar},
+		{"pstr", pstr},
+		{"rotl", rotl},
+		{"rotr", rotr},
 		{NULL, NULL},
 	};
 	int i = 0;
