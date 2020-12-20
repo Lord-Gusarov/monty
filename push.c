@@ -8,7 +8,7 @@
  */
 void push(stack_t **stack, unsigned int l_cnt)
 {
-	stack_t *new = NULL;
+	stack_t *new = NULL, *trv = (*stack);
 
 	if (isint(b.tok[1]) == 0)
 	{
@@ -24,13 +24,25 @@ void push(stack_t **stack, unsigned int l_cnt)
 
 	new->n = atoi(b.tok[1]);
 	new->next = NULL;
+	new->prev = NULL;
+
 	if (!*stack)
 	{
-		new->prev = NULL;
 		*stack = new;
 		return;
 	}
-	new->prev = *stack;
-	(*stack)->next = new;
-	*stack = new;
+
+	if (b.mode == STACK_MODE)
+	{
+		new->prev = *stack;
+		(*stack)->next = new;
+		*stack = new;
+	}
+	else
+	{
+		while (trv->prev)
+			trv = trv->prev;
+		new->next = trv;
+		trv->prev = new;
+	}
 }

@@ -57,7 +57,11 @@ char **_strtok(char *str, char *delims)
 		return (NULL);
 	wc = _wc(str, delims);
 	if (wc > 0)
+	{
 		m = malloc(sizeof(char *) * (wc + 1));
+		if (m == NULL)
+			malloc_failed();
+	}
 	if (m == NULL)
 		return (NULL);
 	m[wc] = NULL;
@@ -66,9 +70,7 @@ char **_strtok(char *str, char *delims)
 		while (str[i] != '\0' && strHasChar(delims, str[i]))
 			i++;
 		while (str[i] != '\0' && !strHasChar(delims, str[i]))
-		{
 			wl++, i++;
-		}
 		if (wl > 0)
 		{
 			m[w_idx] = malloc(sizeof(char) * (wl + 1));
@@ -77,6 +79,7 @@ char **_strtok(char *str, char *delims)
 				while (w_idx > 0)
 					free(m[--w_idx]);
 				free(m);
+				malloc_failed();
 				return (NULL);
 			}
 			m[w_idx][wl] = '\0';
@@ -85,6 +88,16 @@ char **_strtok(char *str, char *delims)
 			w_idx++;
 		}
 	}
-
 	return (m);
+}
+
+
+/**
+ * malloc_failed - prints error message in case malloc fails,
+ * and exits the program accordingly
+ */
+void malloc_failed(void)
+{
+	fprintf(stderr, "Error: malloc failed");
+	close_stack(EXIT_FAILURE);
 }

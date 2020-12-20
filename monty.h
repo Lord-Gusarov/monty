@@ -91,7 +91,6 @@ char **_strtok(char *str, char *delims);
 int isint(char *);
 /*-----------------------------*/
 
-
 void close_stack(int exit_val);
 
 /*---FREEING----*/
@@ -99,5 +98,7 @@ void sfree(char **toFree);
 void freeStrArr(char **array);
 void free_stack(stack_t *stack);
 /*---------------*/
+
+void malloc_failed(void);
 
 #endif
