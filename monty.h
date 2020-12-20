@@ -60,7 +60,7 @@ typedef struct build
 	int mode;
 } build_t;
 
-build_t b;
+extern build_t b;
 
 void push(stack_t **, unsigned int);
 void pall(stack_t **, unsigned int);
