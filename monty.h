@@ -4,7 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-
+#include <errno.h>
 #define STACK_MODE 1
 #define QUEUE_MODE 0
 

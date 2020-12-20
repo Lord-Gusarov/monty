@@ -13,7 +13,7 @@ build_t b = {NULL, NULL, NULL, NULL, STACK_MODE};
 int main(int agc, char **agv)
 {
 	unsigned int l_cnt = 0;
-	size_t size = sizeof(char) * 10000;
+	size_t size = sizeof(char) * 512;
 	ssize_t l_size;
 	void (*funct)(stack_t **, unsigned int) = NULL;
 
@@ -39,6 +39,8 @@ int main(int agc, char **agv)
 		freeStrArr(b.tok);
 		b.tok = NULL;
 	}
+	if (errno == ENOMEM)
+		malloc_failed();
 	close_stack(0);
 	return (0);
 }
