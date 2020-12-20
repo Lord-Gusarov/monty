@@ -13,13 +13,16 @@ build_t b = {NULL, NULL, NULL, NULL, STACK_MODE};
 int main(int agc, char **agv)
 {
 	unsigned int l_cnt = 0;
-	size_t n = -1;
+	size_t size = sizeof(char) * 1000;
 	ssize_t l_size;
 	void (*funct)(stack_t **, unsigned int) = NULL;
 
 	validate_args(agc, agv);
+	b.buf = malloc(size);
+	if (!b.buf)
+		malloc_failed();
 
-	while ((l_size = getline(&b.buf, &n, b.fd)) != EOF)
+	while ((l_size = getline(&b.buf, &size, b.fd)) != EOF)
 	{
 		l_cnt++;
 		b.tok = _strtok(b.buf, " \t\n");
@@ -28,12 +31,11 @@ int main(int agc, char **agv)
 			funct = get_inst(b.tok[0]);
 			if (!funct)
 			{
-				fprintf(stderr, "L%d: unknown instruction %s", l_cnt, b.tok[0]);
+				fprintf(stderr, "L%u: unknown instruction %s", l_cnt, b.tok[0]);
 				close_stack(EXIT_FAILURE);
 			}
 			funct(&b.stack, l_cnt);
 		}
-		sfree(&b.buf);
 		freeStrArr(b.tok);
 		b.tok = NULL;
 	}
