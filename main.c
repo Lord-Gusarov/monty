@@ -1,6 +1,7 @@
 #include "monty.h"
 
-build_t b;
+build_t b = {NULL, NULL, NULL, NULL, STACK_MODE};
+
 /**
  * main - runs the Monty ByteCodes interpreter
  * @agc: count of arguments passed to the program
@@ -16,8 +17,6 @@ int main(int agc, char **agv)
 	ssize_t l_size = 1;
 	void (*funct)(stack_t **, unsigned int) = NULL;
 
-	b.fd = NULL, b.buf = NULL, b.tok = NULL, b.stack = NULL, b.mode = STACK_MODE;
-
 	validate_args(agc, agv);
 	b.buf = malloc(size);
 	if (!b.buf)
@@ -32,7 +31,7 @@ int main(int agc, char **agv)
 			funct = get_inst(b.tok[0]);
 			if (!funct)
 			{
-				fprintf(stderr, "L%u: unknown instruction %s", l_cnt, b.tok[0]);
+				fprintf(stderr, "L%u: unknown instruction %s\n", l_cnt, b.tok[0]);
 				close_stack(EXIT_FAILURE);
 			}
 			funct(&b.stack, l_cnt);
