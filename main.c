@@ -1,7 +1,6 @@
 #include "monty.h"
 
-build_t b = {NULL, NULL, NULL, NULL, STACK_MODE};
-
+build_t b;
 /**
  * main - runs the Monty ByteCodes interpreter
  * @agc: count of arguments passed to the program
@@ -14,8 +13,10 @@ int main(int agc, char **agv)
 {
 	unsigned int l_cnt = 0;
 	size_t size = sizeof(char) * 512;
-	ssize_t l_size;
+	ssize_t l_size = 1;
 	void (*funct)(stack_t **, unsigned int) = NULL;
+
+	b.fd = NULL, b.buf = NULL, b.tok = NULL, b.stack = NULL, b.mode = STACK_MODE;
 
 	validate_args(agc, agv);
 	b.buf = malloc(size);
