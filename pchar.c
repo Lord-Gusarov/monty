@@ -21,5 +21,5 @@ void pchar(stack_t **stack, unsigned int line)
 		fprintf(stderr, "L%d: can't pchar, value out of range\n", line);
 		close_stack(EXIT_FAILURE);
 	}
-	printf("%d\n", n);
+	printf("%c\n", n);
 }
