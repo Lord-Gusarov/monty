@@ -41,8 +41,10 @@ typedef struct instruction_s
 
 /**
  * struct build - an instance of a Monty interpreter
- * @fd: file descriptor for file being read from
+ * @fd: file stream for file being read from
+ * @buf: holds the current line being processed
  * @tok: ByteCodes read from current line
+ * @stack: front of the stack
  * @mode: keeps track is linked list if being treated
  * as a stack or a queue (stack = 1, queue = 0)
  *
@@ -52,14 +54,15 @@ typedef struct instruction_s
 typedef struct build
 {
 	FILE *fd;
+	char *buf;
 	char **tok;
+	stack_t *stack;
 	int mode;
 } build_t;
 
 build_t b;
 
-void push(stack_t **, unsigned int, char *);
-
+void push(stack_t **, unsigned int);
 void pall(stack_t **, unsigned int);
 void pint(stack_t **, unsigned int);
 void pop(stack_t **, unsigned int);
@@ -77,6 +80,8 @@ void rotr(stack_t **, unsigned int);
 void stack(stack_t **, unsigned int);
 void queue(stack_t **, unsigned int);
 
+void validate_args(int, char**);
+
 void (*get_inst(char *))(stack_t **, unsigned int);
 
 /*---string manipulation----*/
@@ -87,7 +92,7 @@ int isint(char *);
 /*-----------------------------*/
 
 
-void close_stack(stack_t *stack, int exit_val);
+void close_stack(int exit_val);
 
 /*---FREEING----*/
 void sfree(char **toFree);
