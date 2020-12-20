@@ -13,7 +13,7 @@ build_t b = {NULL, NULL, NULL, NULL, STACK_MODE};
 int main(int agc, char **agv)
 {
 	unsigned int l_cnt = 0;
-	size_t size = sizeof(char) * 1000;
+	size_t size = sizeof(char) * 10000;
 	ssize_t l_size;
 	void (*funct)(stack_t **, unsigned int) = NULL;
 
