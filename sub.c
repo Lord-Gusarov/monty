@@ -2,7 +2,7 @@
 
 /**
  * sub - subtracts the top two elements of the stack
- * @stack: stack from which to add
+ * @stack: stack from which to subtract
  * @line_number: ByteCode line number
  */
 void sub(stack_t **stack, unsigned int line_number)

@@ -15,6 +15,10 @@ void (*get_inst(char *tok))(stack_t **stack, unsigned int line)
 		{"add", add},
 		{"nop", nop},
 		{"sub", sub},
+		{"div", _div},
+		{"mul", mul},
+		{"mod", mod},
+		{"pchar", pchar},
 		{NULL, NULL},
 	};
 	int i = 0;
