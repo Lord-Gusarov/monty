@@ -8,11 +8,11 @@
  */
 void push(stack_t **stack, unsigned int l_cnt)
 {
-	stack_t *new = NULL, *trv = (*stack);
+	stack_t *new = NULL, *trv = *stack;
 
 	if (isint(b.tok[1]) == 0)
 	{
-		fprintf(stderr, "L%d: usage: push integer\n", l_cnt);
+		fprintf(stderr, "L%u: usage: push integer\n", l_cnt);
 		close_stack(EXIT_FAILURE);
 	}
 	new = malloc(sizeof(stack_t));
