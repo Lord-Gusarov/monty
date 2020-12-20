@@ -2,7 +2,6 @@
 
 /**
  * push - adds an element to the stack.
- * @tok: element to be added.
  * @stack: pointer to the stack.
  * @l_cnt: line number.
  * Return: nothing.
@@ -34,5 +33,4 @@ void push(stack_t **stack, unsigned int l_cnt)
 	new->prev = *stack;
 	(*stack)->next = new;
 	*stack = new;
-	return;
 }
