@@ -5,7 +5,7 @@
  * @line: the line number.
  * Return: nothing.
  */
-void pall(stack_t **stack, unsigned int line)
+void pall(stack_t **stack, __attribute__((unused))unsigned int line)
 {
 	stack_t *temp = *stack;
 
@@ -14,5 +14,4 @@ void pall(stack_t **stack, unsigned int line)
 		printf("%d\n", temp->n);
 		temp = temp->prev;
 	}
-	return;
 }
