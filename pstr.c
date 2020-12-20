@@ -12,16 +12,13 @@ void pstr(stack_t **stack, unsigned int line)
 
 	(void)(line);
 
-	if (*stack)
+	while (tmp)
 	{
-		while (tmp)
-		{
-			n = tmp->n;
-			if (n <= 0 || n > 127)
-				break;
-			printf("%c", n);
-			tmp = tmp->prev;
-		}
+		n = tmp->n;
+		if (n <= 0 || n > 127)
+			break;
+		printf("%c", n);
+		tmp = tmp->prev;
 	}
-	printf("n");
+	printf("\n");
 }
