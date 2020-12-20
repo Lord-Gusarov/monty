@@ -98,6 +98,6 @@ char **_strtok(char *str, char *delims)
  */
 void malloc_failed(void)
 {
-	fprintf(stderr, "Error: malloc failed");
+	fprintf(stderr, "Error: malloc failed\n");
 	close_stack(EXIT_FAILURE);
 }
