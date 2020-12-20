@@ -17,6 +17,7 @@ void pop(stack_t **stack, unsigned int line)
 	if (temp->prev == NULL)
 	{
 		free(temp);
+		*stack = NULL;
 	}
 	else
 	{
