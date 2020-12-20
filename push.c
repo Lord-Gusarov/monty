@@ -17,10 +17,7 @@ void push(stack_t **stack, unsigned int l_cnt)
 	}
 	new = malloc(sizeof(stack_t));
 	if (!new)
-	{
-		fprintf(stderr, "Error: malloc failed");
-		close_stack(EXIT_FAILURE);
-	}
+		malloc_failed();
 
 	new->n = atoi(b.tok[1]);
 	new->next = NULL;
