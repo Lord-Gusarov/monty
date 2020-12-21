@@ -39,7 +39,7 @@ after the opcode or its required argument is not taken into account.
 * If, for any reason, it’s not possible to open the file, it will print the error message `Error: Can't open file <file>` and exit with the status `EXIT_FAILURE`
     * where `<file>` is the name of the file
 * If the file contains an invalid instruction, it will print the error message `L<line_number>: unknown instruction <opcode>` and exit with the status `EXIT_FAILURE`
-    * where `line_number` is the line number where the instruction appears and `opcode` is the instruction given
+    * where `<line_number>` is the line number where the instruction appears and `<opcode>` is the instruction given
     * line numbers always start at 1
 * The monty program runs the bytecodes line by line and stop if either:
     * it executed properly every line of the file
