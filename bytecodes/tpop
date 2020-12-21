@@ -1,0 +1,15 @@
+push 1
+pop
+push 2
+
+
+
+
+
+
+pop
+pall
+push 3
+pop
+push 10
+pall

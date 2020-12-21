@@ -1,0 +1,12 @@
+push 1
+push 2
+pall
+queue
+push 3
+push 4
+pall
+pall
+pall
+pall
+pall
+
