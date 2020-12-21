@@ -46,3 +46,14 @@ after the opcode or its required argument is not taken into account.
     * it finds an error in the file
     * an error occured
 * If the program can't malloc anymore, it will print the error message `Error: malloc failed`, followed by a new line, and exit with status `EXIT_FAILURE`.
+
+## Other
+
+* The folder **bytecodes** contains different monty byte code files that serve
+for testing purposes.
+
+* *gcc_monty* is a script that will compile the program with the above mentioned
+specifications.
+
+* *leaks_check* is a script to be used with the monty byte code file to check
+for any memory leaks after the execution of the program.
